@@ -14,11 +14,15 @@ namespace Memory {
 //  posix_memalign(pointer, static_cast<size_t>(Alignment::SSE), size);
 enum class Alignment : size_t { DEFAULT = sizeof(void *), SSE = 16, AVX = 32 };
 
+// check if address is aligned on a Aligment-byte boundary
+template <Alignment A = Alignment::DEFAULT> inline bool is_aligned(void *ptr) {
+  return ((uintptr_t)ptr & (static_cast<size_t>(A) - 1)) == 0;
+}
 // check if address is aligned on a 16-byte boundary
-inline bool sse_aligned(void *ptr) { return ((uintptr_t)ptr & 0xF) == 0; }
+inline bool sse_aligned(void *ptr) { return is_aligned<Alignment::SSE>(ptr); }
 
 // check if address is aligned on a 32-byte boundary
-inline bool avx_aligned(void *ptr) { return ((uintptr_t)ptr & 0x1F) == 0; }
+inline bool avx_aligned(void *ptr) { return is_aligned<Alignment::AVX>(ptr); }
 
 // allocate aligned memory
 // Example:
