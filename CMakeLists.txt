@@ -22,6 +22,7 @@ if (tests)
   file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/tests/*.cpp)
 
   include_directories(
+    ${PROJECT_SOURCE_DIR}/src
     ${gtest_SOURCE_DIR}/include
     ${gtest_SOURCE_DIR}
   )

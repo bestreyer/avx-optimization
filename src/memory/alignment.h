@@ -1,7 +1,7 @@
 #ifndef BSTR_MEMORY_ALIGNMENT
 #define BSTR_MEMORY_ALIGNMENT
 
-#include <malloc/malloc.h>
+#include "malloc_size.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
