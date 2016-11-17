@@ -13,8 +13,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall")
 
 add_executable(${PROJECT_NAME} main.cpp)
 
-if (tests)
-  MESSAGE("BUILD TESTS")
+if (test)
+  MESSAGE("BUILD WITH TESTS")
 
   # create tests folder
   set(TEST_OUTPUT_FOLDER ${BIN_FOLDER}/tests)
@@ -39,5 +39,6 @@ if (tests)
   )
 
   add_test(test ${TEST_OUTPUT_FOLDER}/${PROJECT_TEST_NAME})
-
+else()
+  MESSAGE("BUILD WITHOUT TESTS")
 endif()
