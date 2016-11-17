@@ -1,4 +1,8 @@
-# AVX OPTIMIZATION
+
+# AVX OPTIMIZATION #
+
+[![Build Status](https://travis-ci.org/bestreyer/avx-optimization.svg?branch=master)](https://travis-ci.org/bestreyer/avx-optimization)
+
 SHOULD NOT USE IT IN PRODUCTION
 
 Experimental open source project for testing INTEL AVX2 instructions
