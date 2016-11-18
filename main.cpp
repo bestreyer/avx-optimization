@@ -1,24 +1,69 @@
+#include "src/math/add.h"
+#include "src/math/vector.h"
 #include "src/memory/alignment.h"
-#include <immintrin.h>
-#include <iostream>
-#include <stdint.h>
+#include <ctime>
 #include <stdio.h>
-#include <stdlib.h>
 
 using namespace ::Bstr::Memory;
+using namespace ::Bstr::Check;
+using namespace Bstr::Math;
+using namespace std;
+
+/*int32_t *f(int32_t *v1, int32_t *v2, size_t len) {
+  int32_t *result = new int32_t[len];
+  for (int i = 0; i < len; i++) {
+    result[i] = v1[i] + v2[i];
+  }
+
+  return result;
+}*/
 
 int main() {
-  auto ptr = allocate_aligned_memory<uint16_t, Alignment::AVX>(16);
-  printf("%d\n", sse_aligned(ptr));
-  for (int i = 0; i < 16; i++) {
-    ptr[i] = i;
+  size_t c = 20000;
+  Bstr::Math::Vector<int32_t> v;
+  Bstr::Math::Vector<int32_t> v1;
+  Bstr::Math::Vector<int32_t> v2;
+
+  for (int32_t i = 0; i < c; i++) {
+    v.push(i);
+    v1.push(i + 1);
+  }
+  v.push(20);
+  v2 = v + v1;
+  v2 = std::move(v);
+  /*size_t c = 20000;
+  Vector<int32_t> v;
+  Vector<int32_t> v1;
+
+  int32_t *mv = new int32_t[c];
+  int32_t *mv1 = new int32_t[c];
+
+  for (int32_t i = 0; i < c; i++) {
+    v.push(i);
+    v1.push(i + 1);
+    mv[i] = i;
+    mv1[i] = i + 1;
   }
 
-  auto ptr1 = reallocate_aligned_memory<uint16_t, Alignment::AVX>(ptr, 32);
+  size_t samples = 10000;
 
-  for (int i = 0; i < 16; i++) {
-    printf("%d ", ptr1[i]);
+  clock_t begin = clock();
+  auto v3 = v + v1;
+  for (int i = 0; i < samples; i++) {
+    v3 = v + v1;
   }
+  clock_t end = clock();
+  double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+  printf("%f\n", elapsed_secs);
 
-  // deallocate_aligned_memory(ptr);
+  begin = clock();
+  auto mv2 = f(mv, mv1, c);
+  for (int i = 0; i < samples; i++) {
+    mv2 = f(mv, mv1, c);
+  }
+  end = clock();
+  elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+  printf("%f\n", elapsed_secs);
+
+  printf("%d %d", v3[0], mv2[0]);*/
 }
