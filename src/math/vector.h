@@ -3,6 +3,10 @@
 
 #include "../memory/alignment.h"
 #include "add.h"
+#include "div.h"
+#include "macro.h"
+#include "multiplication.h"
+#include "sub.h"
 #include <stdexcept>
 #include <stdio.h>
 #include <utility>
@@ -48,6 +52,21 @@ private:
     _data = std::exchange(other._data, nullptr);
   }
 
+  Vector applyOperation(Vector &other, void (*func)(T *, T *, T *)) {
+    if (other._len != _len)
+      throw std::invalid_argument("Vectors must be have equals length");
+
+    auto l = roundToBlockSize(_len);
+    auto dataResult = mem::AllocateAlignedMemory<T, mem::Alignment::AVX>(l);
+
+    auto iterations = l / _blockSize;
+    for (size_t i = 0; i < iterations; i++) {
+      size_t section = i * _blockSize;
+      func(_data + section, other._data + section, dataResult + section);
+    }
+    return Vector(l, dataResult);
+  }
+
 public:
   Vector(size_t capacity) : _len(0) {
     setCapacity(capacity);
@@ -75,20 +94,14 @@ public:
     return *this;
   }
 
-  Vector operator+(Vector &other) {
-    if (other._len != _len)
-      throw std::invalid_argument("Vectors must be have equals length");
+  Vector operator+(Vector &other) { return applyOperation(other, &add); }
 
-    auto l = roundToBlockSize(_len);
-    auto dataResult = mem::AllocateAlignedMemory<T, mem::Alignment::AVX>(l);
-
-    auto iterations = l / _blockSize;
-    for (size_t i = 0; i < iterations; i++) {
-      size_t section = i * _blockSize;
-      add(_data + section, other._data + section, dataResult + section);
-    }
-    return Vector(l, dataResult);
+  Vector operator*(Vector &other) {
+    return applyOperation(other, &multiplication);
   }
+
+  Vector operator-(Vector &other) { return applyOperation(other, &sub); }
+  Vector operator/(Vector &other) { return applyOperation(other, &div); }
 
   T &operator[](size_t i) { return _data[i]; }
 

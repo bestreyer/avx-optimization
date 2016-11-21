@@ -51,4 +51,24 @@ TEST(Check, CheckTypes) {
   ValidTypes<IsIntegral64, uint64_t, int64_t>();
   InvalidTypes<IsIntegral64, double, float, uint8_t, int8_t, uint16_t, int16_t,
                uint32_t, int32_t>();
+
+  // check IsUIntegral8
+  ValidTypes<IsUIntegral8, uint8_t>();
+  InvalidTypes<IsUIntegral8, double, float, uint16_t, int16_t, uint32_t,
+               int32_t, uint64_t, int64_t, int8_t>();
+
+  // check IsUIntegral16
+  ValidTypes<IsUIntegral16, uint16_t>();
+  InvalidTypes<IsUIntegral16, double, float, uint8_t, int8_t, uint32_t, int32_t,
+               uint64_t, int64_t, int16_t>();
+
+  // check IsUIntegral32
+  ValidTypes<IsUIntegral32, uint32_t>();
+  InvalidTypes<IsUIntegral32, double, float, uint8_t, int8_t, uint16_t, int16_t,
+               uint64_t, int64_t, int32_t>();
+
+  // check IsUIntegral64
+  ValidTypes<IsUIntegral64, uint64_t>();
+  InvalidTypes<IsUIntegral64, double, float, uint8_t, int8_t, uint16_t, int16_t,
+               uint32_t, int32_t, int64_t>();
 }

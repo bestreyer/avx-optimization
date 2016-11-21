@@ -1,6 +1,7 @@
 #include "src/math/add.h"
 #include "src/math/vector.h"
 #include "src/memory/alignment.h"
+
 #include <ctime>
 #include <stdio.h>
 
@@ -9,28 +10,29 @@ using namespace ::Bstr::Check;
 using namespace Bstr::Math;
 using namespace std;
 
-/*int32_t *f(int32_t *v1, int32_t *v2, size_t len) {
-  int32_t *result = new int32_t[len];
-  for (int i = 0; i < len; i++) {
-    result[i] = v1[i] + v2[i];
-  }
-
-  return result;
-}*/
+uint64_t fastDiv(uint64_t t1, uint64_t t2) {
+  uint8_t powerTwo = 64 - _lzcnt_u64(t1 - 1);
+}
 
 int main() {
-  size_t c = 20000;
-  Bstr::Math::Vector<int32_t> v;
-  Bstr::Math::Vector<int32_t> v1;
-  Bstr::Math::Vector<int32_t> v2;
 
-  for (int32_t i = 0; i < c; i++) {
-    v.push(i);
-    v1.push(i + 1);
-  }
-  v.push(20);
-  v2 = v + v1;
-  v2 = std::move(v);
+  printf("%llu", IS_POWER_2(-16));
+  /*  size_t c = 100;
+    Bstr::Math::Vector<int32_t> v;
+    Bstr::Math::Vector<int32_t> v1;
+    Bstr::Math::Vector<int32_t> v2;
+
+    for (int32_t i = 0; i < c; i++) {
+      v.push(i);
+      v1.push(i + 1);
+    }
+    v2 = v * v1;
+
+    for (int32_t i = 0; i < c; i++) {
+      printf("%d ", v2[i]);
+    }*/
+  // v2 = v + v1;
+  // v2 = std::move(v);
   /*size_t c = 20000;
   Vector<int32_t> v;
   Vector<int32_t> v1;

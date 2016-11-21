@@ -14,7 +14,7 @@ set(BIN_FOLDER ${PROJECT_SOURCE_DIR}/bin)
 file(MAKE_DIRECTORY ${BIN_FOLDER})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BIN_FOLDER})
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -mavx2 -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -mavx2 -mlzcnt -O3")
 
 add_executable(${PROJECT_NAME} main.cpp)
 

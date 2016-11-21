@@ -2,11 +2,8 @@
 #define BSTR_MATH_ADD
 
 #include "../check/enable.h"
+#include "macro.h"
 #include <immintrin.h>
-#include <stdio.h>
-
-// one type pointer to cast other type pointer and get value
-#define CAST_GET_VAL(T, V) *(reinterpret_cast<T *>(V))
 
 namespace Bstr {
 namespace Math {

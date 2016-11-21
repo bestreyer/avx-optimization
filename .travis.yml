@@ -1,14 +1,16 @@
 language: cpp
+matrix:
+  include:
+    - os: osx
+      compiler: clang++
+      osx_image: xcode8
+      env:
+        - TEST=XCODE8 CMAKEARGS="-DCMAKE_BUILD_TYPE=Release .."
 branches:
   only:
     - master
     - develop
     - feature/vector
-compiler:
-  - clang++
-os: osx
-osx_image: xcode8
-
 install:
   - mkdir build
   - cd build
