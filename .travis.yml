@@ -1,10 +1,18 @@
 language: cpp
-compiler:
-  - clang++
-os:
-  - osx
+matrix:
+  include:
+    - os: osx
+      compiler: clang++
+      osx_image: xcode8
+      env:
+        - TEST=XCODE8 CMAKEARGS="-DCMAKE_BUILD_TYPE=Release .."
+branches:
+  only:
+    - master
+    - develop
+    - feature/vector
 install:
   - mkdir build
   - cd build
   - cmake -Dtest=ON .. && make
-script: make test
+script: ./../bin/tests/avx-optimization-test
