@@ -1,4 +1,3 @@
-
 # AVX OPTIMIZATION #
 
 [![Build Status](https://travis-ci.org/bestreyer/avx-optimization.svg?branch=master)](https://travis-ci.org/bestreyer/avx-optimization)
@@ -20,3 +19,6 @@ build with tests
 
 run tests
 ``` make test ```
+
+## Resources
+[Division by Invariant Integers using Multiplication](https://gmplib.org/~tege/divcnst-pldi94.pdf)
